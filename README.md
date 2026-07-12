@@ -1,30 +1,38 @@
-# Melbourne-housing-DTA
-Notes on Specific Variables
-Rooms: Number of rooms
+## Melbourne Housing Price Prediction
 
-Price: Price in dollars
+### Project overview
 
-Method: S - property sold; SP - property sold prior; PI - property passed in; PN - sold prior not disclosed; SN - sold not disclosed; NB - no bid; VB - vendor bid; W - withdrawn prior to auction; SA - sold after auction; SS - sold after auction price not disclosed. N/A - price or highest bid not available.
+The goal of this project was to predict housing prices in Melbourne using machine learning. The dataset contains information about property characteristics, location, property type, sale method and other factors that may influence the final selling price.
 
-Type: br - bedroom(s); h - house,cottage,villa, semi,terrace; u - unit, duplex; t - townhouse; dev site - development site; o res - other residential.
+### Data cleaning and preprocessing
 
-SellerG: Real Estate Agent
+The following preprocessing steps were performed:
 
-Date: Date sold
-Distance: Distance from CBD
+* removed unnecessary columns;
+* handled missing values using imputation;
+* created new features (property age, sale year, sale month, indicators for missing values);
+* applied frequency encoding for the **Suburb** feature;
+* encoded categorical variables using One-Hot Encoding;
+* built a preprocessing pipeline using **ColumnTransformer** and **Pipeline**.
 
-Regionname: General Region (West, North West, North, North east …etc)
+### Analysis results
 
-Propertycount: Number of properties that exist in the suburb.
+Exploratory data analysis showed that property price is strongly related to its characteristics and location. Larger properties with more rooms and bathrooms generally have higher prices. Distance from the city centre also influences property value, while additional engineered features helped improve the predictive performance of the models.
 
-Bedroom2 : Scraped # of Bedrooms (from different source)
+### Model performance
 
-Bathroom: Number of Bathrooms
+Three models were evaluated:
 
-Car: Number of carspots
+| Model             |         MAE |        RMSE |        R² |
+| ----------------- | ----------: | ----------: | --------: |
+| Baseline (Mean)   |     490,911 |     721,693 |     0.000 |
+| Linear Regression |     251,840 |     464,514 |     0.586 |
+| **Random Forest** | **183,784** | **392,073** | **0.705** |
 
-Landsize: Land Size
+The **Random Forest** model achieved the best performance with the **lowest prediction error (MAE = 183,784 AUD)** and the **highest coefficient of determination (R² = 0.705)**. This means the model explains approximately **70.5%** of the variation in housing prices and significantly outperforms both the baseline model and Linear Regression.
 
-BuildingArea: Building Size
+### Possible improvements
 
-CouncilArea: Governing council for the area
+* Include additional location-based features such as proximity to schools, public transport and parks.
+
+
